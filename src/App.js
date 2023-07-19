@@ -4,7 +4,7 @@ import { solve, randomize } from './logic.js';
 import { useState, useEffect } from 'react';
 
 function App(props) {
-  const [pieces, setPieces] = useState([1, 2, 3, 4, 5, 6, 7, -1, 8]);
+  const [pieces, setPieces] = useState([1, 2, 3, 4, 5, 6, 7, 8, -1]);
 
   const solveBoard = () => {
     let steps = solve([...pieces]);

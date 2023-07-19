@@ -192,8 +192,7 @@ let randomize = (board) => {
     board = new Board(board, null);
 
     board.nextStates(nextStatesWhileRandomizing);
-    for (let i = 0; i < 10 || board.heuristic < 20; i++) {
-        if (i > 5) return board.board;
+    for (let i = 0; i < 11; i++) {
         nextStatesWhileRandomizing.sort((a, b) => b.heuristic - a.heuristic);
         board = nextStatesWhileRandomizing.shift();
         board.nextStates(nextStatesWhileRandomizing);
