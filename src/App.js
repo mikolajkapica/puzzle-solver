@@ -1,25 +1,57 @@
 import logo from './logo.svg';
 import './App.css';
+import { solve, randomize } from './logic.js';
+import { useState, useEffect } from 'react';
 
-function App() {
+function App(props) {
+  const [pieces, setPieces] = useState([1, 2, 3, 4, 5, 6, 7, -1, 8]);
+
+  const solveBoard = () => {
+    let steps = solve([...pieces]);
+    for (let i = 0; i < steps.length; i++) {
+        setTimeout(() => {
+            setPieces(steps[i]);
+        }, 200 * i);
+    }
+  };
+
+  const randomizeBoard = () => {
+      setPieces(randomize([...pieces]));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 className="Title">Puzzle Solver</h1>
+      <Board pieces={pieces} size={3}/>
+      <button className="SolveButton" onClick={solveBoard}>Solve</button>
+      <button className="RandomizeButton" onClick={randomizeBoard}>Randomize</button>
     </div>
   );
 }
 
+function Piece(props) {
+    let className = "Piece";
+    if (props.number === -1) {
+        className += " Empty";
+    }
+    return (
+        <div className={className}>
+            <h1> {props.number} </h1>
+        </div>
+    );
+}
+
+function Board(props) {
+    let react_pieces = props.pieces.map((number) => {
+        return <Piece key={number} number={number}/>
+    });
+    return (
+        <div className="Board">
+            {react_pieces}
+        </div>
+    );
+}
+
+
 export default App;
+
